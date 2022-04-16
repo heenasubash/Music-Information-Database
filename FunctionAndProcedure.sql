@@ -1,0 +1,18 @@
+
+CREATE FUNCTION countTheWords(lyrics TEXT, word VARCHAR(20))
+RETURNS INT deterministic
+RETURN ROUND((LENGTH(lyrics) - LENGTH(REPLACE(lyrics,word,"")))/LENGTH(word));
+
+DELIMITER &&
+CREATE PROCEDURE songplay1(in keyq int)
+BEGIN
+SELECT SUM(no_songplay) as plays 
+FROM song_play WHERE song_id = keyq ;
+END &&
+
+/*DELIMITER &&
+CREATE OR REPLACE TRIGGER SONG_ID
+AFTER INSERT ON song FOR EACH ROW
+BEGIN
+INSERT INTO HAS(HAS.SONGID) VALUES (NEW.SONGID)
+END &&*/
